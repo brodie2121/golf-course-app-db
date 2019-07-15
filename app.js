@@ -28,5 +28,5 @@ app.use(cors(corsOptions));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/dailyJobBoard', dailyJobBoardRouter);
+app.use('/dailyjobboard', dailyJobBoardRouter);
 module.exports = app;

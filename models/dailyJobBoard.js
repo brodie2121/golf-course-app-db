@@ -42,14 +42,27 @@ class DailyJobBoard {
     }
 
     //add jobs
-    static async AddNewJob (id, date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id) {
-        const query = `insert into dailyjobboard (date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id)
-    VALUES ('${date}', '${firstJob}', '${commentsFirstJob}', '${secondJob}', '${commentsSecondJob}', '${employee_id}')`;
+    static async addNewJob (date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id) {
         try {
-            let response = await db.result(query);
+            const response = await db.result(`INSERT INTO dailyjobboard (date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id)
+                VALUES ($1, $2, $3, $4, $5, $6)`, [date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id])
             return response;
         } catch (err) {
-            return err;
+            return err.message;
+        }
+    }
+
+    //update jobs
+    static async updateJob(id, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id) {
+        try {
+            const response = await db.result(`
+                UPDATE dailyjobboard
+                SET ${column} = $1
+                WHERE id = $2
+            `, [firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id, id])
+            return response;
+        } catch (err) {
+            return err.message
         }
     }
 
