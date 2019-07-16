@@ -15,8 +15,8 @@ router.get("/all", async (req, res, next) => {
 
 //create new job
 router.post("/post/add", async (req,res) => {
-    const { date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id } = req.body;
-    const response = await DailyJobBoardModel.addNewJob(date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id);
+    const { posting_date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id } = req.body;
+    const response = await DailyJobBoardModel.addNewJob(posting_date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id);
     (response.command === "INSERT" && response.rowCount >= 1) ? res.sendStatus(200) : res.send(`Could not add new job ${employee_id}`).status(409);
 });
 

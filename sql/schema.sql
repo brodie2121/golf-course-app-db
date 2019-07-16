@@ -30,3 +30,4 @@ create table sprayChart (
     sprayRig varchar(1000),
     pestOrDiseasedControlled varchar(1000)
 );
+

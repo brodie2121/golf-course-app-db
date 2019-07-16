@@ -3,7 +3,7 @@ const db = require('./conn.js');
 class DailyJobBoard {
     constructor (id, date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id) {
         this.id = id;
-        this.date = date;
+        this.posting_date = posting_date;
         this.firstjob = firstJob;
         this.commentsFirstJob = commentsFirstJob;
         this.secondJob = secondJob;
@@ -32,9 +32,9 @@ class DailyJobBoard {
     }
 
     //get past jobs by date
-    static async getJobByDate(date) {
+    static async getJobByDate(posting_date) {
         try {
-            const response = await db.one(`select * from dailyjobboard where id = ${date}`);
+            const response = await db.one(`select * from dailyjobboard where id = ${posting_date}`);
             return response;
         } catch (err) {
             return err.message;
@@ -42,10 +42,10 @@ class DailyJobBoard {
     }
 
     //add jobs
-    static async addNewJob (date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id) {
+    static async addNewJob (posting_date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id) {
         try {
             const response = await db.result(`INSERT INTO dailyjobboard (date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id)
-                VALUES ($1, $2, $3, $4, $5, $6)`, [date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id])
+                VALUES ($1, $2, $3, $4, $5, $6)`, [posting_date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id])
             return response;
         } catch (err) {
             return err.message;
