@@ -1,7 +1,7 @@
 const db = require('./conn.js');
 
 class DailyJobBoard {
-    constructor (id, date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id) {
+    constructor (id, posting_date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id) {
         this.id = id;
         this.posting_date = posting_date;
         this.firstjob = firstJob;
@@ -21,6 +21,16 @@ class DailyJobBoard {
         }
     }
 
+    //get job by job id
+    static async getJobById(job_id) {
+        try {
+            const response = await db.one(`select * from dailyjobboard where id = ${job_id}`);
+            return response;
+        } catch (err) {
+            return err.message;
+        }
+    }
+
     //get past jobs for one specific employee
     static async getJobById(employee_id) {
         try {
@@ -31,7 +41,7 @@ class DailyJobBoard {
         }
     }
 
-    //get past jobs by date
+    //get jobs by date
     static async getJobByDate(posting_date) {
         try {
             const response = await db.one(`select * from dailyjobboard where id = ${posting_date}`);
@@ -42,10 +52,10 @@ class DailyJobBoard {
     }
 
     //add jobs
-    static async addNewJob (posting_date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id) {
+    static async addNewJob(posting_date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id) {
         try {
-            const response = await db.result(`INSERT INTO dailyjobboard (date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id)
-                VALUES ($1, $2, $3, $4, $5, $6)`, [posting_date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id])
+            const response = await db.result(`INSERT INTO dailyjobboard (posting_date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id)
+            VALUES ($1, $2, $3, $4, $5, $6)`, [posting_date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id]);
             return response;
         } catch (err) {
             return err.message;

@@ -1,6 +1,5 @@
 const pgp = require('pg-promise')({
-    query: e => {
-    }
+    query: e => {}
 });
 
 const options = {

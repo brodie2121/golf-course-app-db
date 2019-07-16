@@ -26,7 +26,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors(corsOptions));
 
+app.use('/dailyjobboard', dailyJobBoardRouter);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/dailyjobboard', dailyJobBoardRouter);
+
 module.exports = app;

@@ -13,10 +13,39 @@ router.get("/all", async (req, res, next) => {
     res.json(allJobs).status(200);
 });
 
+//get jobs by date
+router.get('/jobs', async (req, res, next) => {
+    const posting_date = req.params.job_id;
+    const date = await DailyJobBoardModel.getJobByDate(posting_date);
+    res.json(date).status(200);
+});
+
+
+//router.get("/jobs/:job_id?", async (req, res, next) => {
+    //const postId = req.params.post_id;
+    //const thePost = await PostModel.getById(postId);
+    //res.json(thePost).status(200);
+//});
+  
+
+
+//router.get("/post/:post_id?", async (req, res, next) => {
+    //const postId = req.params.post_id;
+    //const thePost = await PostModel.getById(postId);
+    //res.json(thePost).status(200);
+  //});
+
+
+
+
+
+
+
 //create new job
 router.post("/post/add", async (req,res) => {
     const { posting_date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id } = req.body;
     const response = await DailyJobBoardModel.addNewJob(posting_date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id);
+
     (response.command === "INSERT" && response.rowCount >= 1) ? res.sendStatus(200) : res.send(`Could not add new job ${employee_id}`).status(409);
 });
 
