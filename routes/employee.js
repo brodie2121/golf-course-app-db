@@ -19,6 +19,16 @@ router.get("/employees/:employee_id?", async (req, res) => {
     res.json(theEmployee).status(200);
 });
 
+router.get("/delete/:employee_id?", async (req, res, next) => {
+    const employeeId = req.params.employee_id;
+    const response = await EmployeeModel.deleteEmployee(employeeId);
+    if (response.command === "DELETE" && response.rowCount >= 1) {
+        res.sendStatus(200);
+    } else {
+        res.send(`Could not delete employeeId: ${employeeId}`).sendStatus(409);
+    }
+});
+
 router.post("/post/add", async (req, res) => {
     const { firstName, lastName, phoneNumber, email, experience, dateStarted } = req.body;
     console.log(req.body);
@@ -30,7 +40,7 @@ router.post("/post/add", async (req, res) => {
     }
 });
 
-router.put("/employee/update/:employee_id?", async (req, res) => {
+router.put("/employees/update/:employee_id?", async (req, res) => {
     const employeeId = req.params.employee_id;
     console.log(req.body);
     const { firstName, lastName, phoneNumber, email, experience, dateStarted } = req.body;

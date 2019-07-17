@@ -13,7 +13,7 @@ router.get("/all", async (req, res, next) => {
     res.json(allSpraycharts).status(200);
 });
 
-router.get("/spraychart/:spraychart_id?", async (req, res) => {
+router.get("/spraycharts/:spraychart_id?", async (req, res) => {
     const spraychartId = req.params.spraychart_id;
     const theSpraychart = await SpraychartModel.getById(spraychartId);
     res.json(theSpraychart).status(200);
