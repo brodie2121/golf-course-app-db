@@ -39,8 +39,8 @@ class Employee {
     }
 
     static async addEmployee(FirstName, lastName, phoneNumber, email, experience, dateStarted) {
-        const query = `insert into posts
-        (id, FirstName, lastName, phoneNumber, email, experience, dateStarted)
+        const query = `insert into employee
+        (FirstName, lastName, phoneNumber, email, experience, dateStarted)
     Values ('${FirstName}', '${lastName}', '${phoneNumber}', '${email}', '${experience}', '${dateStarted}')`;
         try {
             let response = await db.result(query);
