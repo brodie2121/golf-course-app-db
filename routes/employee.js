@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+
 const EmployeeModel = require("../models/employee");
 
 /* GET home page. */
@@ -18,10 +19,10 @@ router.get("/employee/:employee_id?", async (req, res) => {
     res.json(theEmployee).status(200);
 });
 
-router.post("/employee/add", async (req, res) => {
-    const { firstname, lastname, phonenumber, email, experience, datestarted } = req.body;
+router.post("/post/add", async (req, res) => {
+    const { firstName, lastName, phoneNumber, email, experience, dateStarted } = req.body;
     console.log(req.body);
-    const response = await EmployeeModel.createEntry(firstname, lastname, phonenumber, email, experience, datestarted);
+    const response = await EmployeeModel.createEmployee(firstName, lastName, phoneNumber, email, experience, dateStarted);
     if (response.command === "INSERT" && response.rowCount >= 1) {
         res.sendStatus(200);
     } else {
@@ -32,8 +33,8 @@ router.post("/employee/add", async (req, res) => {
 router.put("/employee/update/:employee_id?", async (req, res) => {
     const employeeId = req.params.employee_id;
     console.log(req.body);
-    const { firstname, lastname, phonenumber, email, experience, datestarted } = req.body;
-    const response = await EmployeeModel.updateEmployee(employeeId, `firstname`, firstname, `lastname`, lastname, `phonenumber`, phonenumber, `email`, email, `experience`, experience, `datestarted`, datestarted);
+    const { firstName, lastName, phoneNumber, email, experience, dateStarted } = req.body;
+    const response = await EmployeeModel.updateEmployee(employeeId, `firstName`, firstName, `lastName`, lastName, `phoneNumber`, phoneNumber, `email`, email, `experience`, experience, `dateStarted`, dateStarted);
     if (response.command === "UPDATE" && response.rowCount >= 1) {
         res.sendStatus(200);
     } else {

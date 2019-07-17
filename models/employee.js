@@ -1,14 +1,14 @@
 const db = require('./conn.js');
 
 class Employee {
-    constructor(id, firstname, lastname, phonenumber, email, experience, datestarted) {
+    constructor(id, FirstName, lastName, phoneNumber, email, experience, dateStarted) {
         this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname; 
-        this.phonenumber = phonenumber;
+        this.FirstName = FirstName;
+        this.lastName = lastName; 
+        this.phoneNumber = phoneNumber;
         this.email = email;
         this.experience = experience;
-        this.datestarted = datestarted;
+        this.dateStarted = dateStarted;
     }
 
     static async getAll() {
@@ -38,10 +38,10 @@ class Employee {
         }
     }
 
-    static async addEmployee(firstname, lastname, phonenumber, email, experience, datestarted) {
+    static async addEmployee(FirstName, lastName, phoneNumber, email, experience, dateStarted) {
         const query = `insert into posts
-        (id, firstname, lastname, phonenumber, email, experience, datestarted)
-    Values ('${firstname}', '${lastname}', '${phonenumber}', '${email}', '${experience}', '${datestarted}')`;
+        (id, FirstName, lastName, phoneNumber, email, experience, dateStarted)
+    Values ('${FirstName}', '${lastName}', '${phoneNumber}', '${email}', '${experience}', '${dateStarted}')`;
         try {
             let response = await db.result(query);
             return response;
@@ -51,8 +51,8 @@ class Employee {
         }
     }
 
-    static async updateEmployee(firstname, lastname, phonenumber, email, experience, datestarted) {
-        const query = `UPDATE employee SET ${column} = ${firstname}, ${lastname}, ${phonenumber}, ${email}, ${experience}, ${datestarted} WHERE id = '${id}'`;
+    static async updateEmployee(FirstName, lastName, phoneNumber, email, experience, dateStarted) {
+        const query = `UPDATE employee SET ${column} = ${FirstName}, ${lastName}, ${phoneNumber}, ${email}, ${experience}, ${dateStarted} WHERE id = '${id}'`;
         try {
             const response = await db.result(query);
             return response;
