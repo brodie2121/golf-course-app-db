@@ -22,11 +22,11 @@ router.get("/employee/:employee_id?", async (req, res) => {
 router.post("/post/add", async (req, res) => {
     const { firstName, lastName, phoneNumber, email, experience, dateStarted } = req.body;
     console.log(req.body);
-    const response = await EmployeeModel.createEmployee(firstName, lastName, phoneNumber, email, experience, dateStarted);
+    const response = await EmployeeModel.addEmployee( firstName, lastName, phoneNumber, email, experience, dateStarted);
     if (response.command === "INSERT" && response.rowCount >= 1) {
         res.sendStatus(200);
     } else {
-        res.send(`Could not add new employee ${employee_id}`).status(409);
+        res.send(`Could not add new employee`).status(409);
     }
 });
 
