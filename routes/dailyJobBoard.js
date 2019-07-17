@@ -21,11 +21,11 @@ router.get('/jobs/${posting_date}', async (req, res, next) => {
 });
 
 
-//router.get("/jobs/:job_id?", async (req, res, next) => {
-    //const postId = req.params.post_id;
-    //const thePost = await PostModel.getById(postId);
-    //res.json(thePost).status(200);
-//});
+router.get("/jobs/:job_id?", async (req, res, next) => {
+    const jobId = req.params.job_id;
+    const theJob = await DailyJobBoardModel.getJobById(jobId);
+    res.json(theJob).status(200);
+});
   
 
 

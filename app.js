@@ -8,6 +8,7 @@ const indexRouter = require('./routes/index');
     usersRouter = require('./routes/users');
     dailyJobBoardRouter = require('./routes/dailyJobBoard');
     employeeRouter = require('./routes/employee');
+    sprayChartRouter = require('./routes/sprayChart');
 
 const corsOptions = {
     "origin": "*",
@@ -29,6 +30,7 @@ app.use(cors(corsOptions));
 
 app.use('/dailyjobboard', dailyJobBoardRouter);
 app.use('/employee', employeeRouter);
+app.use('/spraychart', sprayChartRouter);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

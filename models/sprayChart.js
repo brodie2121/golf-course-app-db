@@ -1,8 +1,8 @@
-const db = require('.conn.js');
+const db = require('./conn.js');
 
 
 class Spraychart {
-    constructor(id, dateApplied, employee_id, holesTreated, lengthOfCutTreated, chemicalsBeingUsed, rateApplied, totalGallons, sprayRig, pestOrDiseasedControlled) {
+    constructor(id, dateApplied, employee_id, holesTreated, lengthOfCutTreated, chemicalsBeingUsed, rateApplied, totalGallons, sprayRig, pestOrDiseaseControlled) {
         this.id = id;
         this.dateApplied = dateApplied;
         this.employee_id = employee_id; 
@@ -12,7 +12,7 @@ class Spraychart {
         this.rateApplied = rateApplied;
         this.totalGallons = totalGallons;
         this.sprayRig = sprayRig;
-        this.pestOrDiseasedControlled = pestOrDiseasedControlled;
+        this.pestOrDiseaseControlled = pestOrDiseaseControlled;
     }
 
     static async getAll() {
@@ -42,10 +42,10 @@ class Spraychart {
         }
     }
 
-    static async addSpraychart(dateApplied, employee_id, holesTreated, lengthOfCutTreated, chemicalsBeingUsed, rateApplied, totalGallons, sprayRig, pestOrDiseasedControlled) {
-        const query = `insert into posts
-        (dateapplied, employee_id, holesTreated, lengthOfCutTreated, chemicalsBeingUsed, rateApplied, totalGallons, sprayRig, pestOrDiseasedControlled)
-    Values ('${dateApplied}', '${employee_id}', '${holesTreated}', '${lengthOfCutTreated}', '${chemicalsBeingUsed}', '${rateApplied}', '${totalGallons}', '${sprayRig}', '${pestOrDiseasedControlled}')`;
+    static async addSpraychart(dateApplied, employee_id, holesTreated, lengthOfCutTreated, chemicalsBeingUsed, rateApplied, totalGallons, sprayRig, pestOrDiseaseControlled) {
+        const query = `insert into spraychart
+        (dateapplied, employee_id, holesTreated, lengthOfCutTreated, chemicalsBeingUsed, rateApplied, totalGallons, sprayRig, pestOrDiseaseControlled)
+    Values ('${dateApplied}', '${employee_id}', '${holesTreated}', '${lengthOfCutTreated}', '${chemicalsBeingUsed}', '${rateApplied}', '${totalGallons}', '${sprayRig}', '${pestOrDiseaseControlled}')`;
         try {
             let response = await db.result(query);
             return response;
@@ -55,8 +55,8 @@ class Spraychart {
         }
     }
 
-    static async updateEmployee(dateApplied, employee_id, holesTreated, lengthOfCutTreated, chemicalsBeingUsed, rateApplied, totalGallons, sprayRig, pestOrDiseasedControlled) {
-        const query = `UPDATE spraychart SET ${column} = ${dateApplied}, ${employee_id}, ${holesTreated}, ${lengthOfCutTreated}, ${chemicalsBeingUsed}, ${rateApplied}, ${totalGallons}, ${sprayRig}, ${pestOrDiseasedControlled} WHERE id = '${id}'`;
+    static async updateEmployee(dateApplied, employee_id, holesTreated, lengthOfCutTreated, chemicalsBeingUsed, rateApplied, totalGallons, sprayRig, pestOrDiseaseControlled) {
+        const query = `UPDATE spraychart SET ${column} = ${dateApplied}, ${employee_id}, ${holesTreated}, ${lengthOfCutTreated}, ${chemicalsBeingUsed}, ${rateApplied}, ${totalGallons}, ${sprayRig}, ${pestOrDiseaseControlled} WHERE id = '${id}'`;
         try {
             const response = await db.result(query);
             return response;

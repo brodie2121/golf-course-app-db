@@ -13,7 +13,7 @@ router.get("/all", async (req, res, next) => {
     res.json(allEmployees).status(200);
 });
 
-router.get("/employee/:employee_id?", async (req, res) => {
+router.get("/employees/:employee_id?", async (req, res) => {
     const employeeId = req.params.employee_id;
     const theEmployee = await EmployeeModel.getById(employeeId);
     res.json(theEmployee).status(200);
