@@ -19,6 +19,18 @@ router.get("/spraycharts/:spraychart_id?", async (req, res) => {
     res.json(theSpraychart).status(200);
 });
 
+//delete chart
+router.get("/delete/:spraychart_id?", async (req, res, next) => {
+    const spraychartId = req.params.spraychart_id;
+    const response = await SpraychartModel.deleteChart(spraychartId);
+    console.log("response", response)
+    if (response.command === "DELETE" && response.rowCount >= 1) {
+        res.sendStatus(200);
+    } else {
+        res.send(`Could not delete spraychartId: ${spraychartId}`).status(409);
+    }
+});
+
 router.post("/post/add", async (req, res) => {
     const { dateApplied, employee_id, holesTreated, lengthOfCutTreated, chemicalsBeingUsed, rateApplied, totalGallons, sprayRig, pestOrDiseaseControlled } = req.body;
     console.log(req.body);

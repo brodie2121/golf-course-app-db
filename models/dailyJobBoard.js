@@ -20,6 +20,15 @@ class DailyJobBoard {
             return err.message;
         }
     }
+    //delete job
+    static async deleteJob(job_id) {
+        try {
+            const response = await db.result(`delete from dailyjobboard where id = ${job_id}`);
+            return response;
+        } catch (err) {
+            return err.message;
+        }
+    }
 
     //get job by job id
     static async getJobById(job_id) {

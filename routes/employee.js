@@ -22,10 +22,11 @@ router.get("/employees/:employee_id?", async (req, res) => {
 router.get("/delete/:employee_id?", async (req, res, next) => {
     const employeeId = req.params.employee_id;
     const response = await EmployeeModel.deleteEmployee(employeeId);
+    console.log("response", response)
     if (response.command === "DELETE" && response.rowCount >= 1) {
         res.sendStatus(200);
     } else {
-        res.send(`Could not delete employeeId: ${employeeId}`).sendStatus(409);
+        res.send(`Could not delete employeeId: ${employeeId}`).status(409);
     }
 });
 
@@ -45,6 +46,7 @@ router.put("/employees/update/:employee_id?", async (req, res) => {
     console.log(req.body);
     const { firstName, lastName, phoneNumber, email, experience, dateStarted } = req.body;
     const response = await EmployeeModel.updateEmployee(employeeId, `firstName`, firstName, `lastName`, lastName, `phoneNumber`, phoneNumber, `email`, email, `experience`, experience, `dateStarted`, dateStarted);
+    console.log("response", response)
     if (response.command === "UPDATE" && response.rowCount >= 1) {
         res.sendStatus(200);
     } else {

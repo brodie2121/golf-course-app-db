@@ -28,16 +28,17 @@ router.get("/jobs/:job_id?", async (req, res, next) => {
 });
   
 
-
-//router.get("/post/:post_id?", async (req, res, next) => {
-    //const postId = req.params.post_id;
-    //const thePost = await PostModel.getById(postId);
-    //res.json(thePost).status(200);
-  //});
-
-
-
-
+//delete job
+router.get("/delete/:job_id?", async (req, res, next) => {
+    const jobId = req.params.job_id;
+    const response = await DailyJobBoardModel.deleteJob(jobId);
+    console.log("response", response)
+    if (response.command === "DELETE" && response.rowCount >= 1) {
+        res.sendStatus(200);
+    } else {
+        res.send(`Could not delete jobId: ${jobId}`).status(409);
+    }
+});
 
 
 

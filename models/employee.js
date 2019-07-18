@@ -31,7 +31,7 @@ class Employee {
 
     static async deleteEmployee(employee_id) {
         try {
-            const response = await db.result(`delete * from employee where id = ${employee_id}`);
+            const response = await db.result(`delete from employee where id = ${employee_id}`);
             return response;
         } catch (err) {
             return err.message;

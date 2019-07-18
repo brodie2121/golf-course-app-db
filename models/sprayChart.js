@@ -33,9 +33,9 @@ class Spraychart {
         }
     }
 
-    static async removeChart(spraychart_id) {
+    static async deleteChart(spraychart_id) {
         try {
-            const response = await db.result(`delete * from spraychart where id = ${spraychart_id}`);
+            const response = await db.result(`delete from spraychart where id = ${spraychart_id}`);
             return response;
         } catch (err) {
             return err.message;
