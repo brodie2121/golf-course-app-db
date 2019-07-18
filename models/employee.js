@@ -38,10 +38,10 @@ class Employee {
         }
     }
 
-    static async addEmployee(FirstName, lastName, phoneNumber, email, experience, dateStarted) {
+    static async addEmployee(firstName, lastName, phoneNumber, email, experience, dateStarted) {
         const query = `insert into employee
-        (FirstName, lastName, phoneNumber, email, experience, dateStarted)
-    Values ('${FirstName}', '${lastName}', '${phoneNumber}', '${email}', '${experience}', '${dateStarted}')`;
+        (firstName, lastName, phoneNumber, email, experience, dateStarted)
+    Values ('${firstName}', '${lastName}', '${phoneNumber}', '${email}', '${experience}', '${dateStarted}')`;
         try {
             let response = await db.result(query);
             return response;
@@ -51,10 +51,22 @@ class Employee {
         }
     }
 
-    static async updateEmployee(FirstName, lastName, phoneNumber, email, experience, dateStarted) {
-        const query = `UPDATE employee SET ${column} = ${FirstName}, ${lastName}, ${phoneNumber}, ${email}, ${experience}, ${dateStarted} WHERE id = '${id}'`;
+    static async updateEmployee(employeeId, firstName, lastName, phoneNumber, email, experience, dateStarted) {
+        const query = `
+            UPDATE employee 
+            SET 
+                firstname = '${firstName}', 
+                lastname = '${lastName}', 
+                phonenumber = '${phoneNumber}', 
+                email = '${email}', 
+                experience = '${experience}', 
+                datestarted = ${dateStarted} 
+            WHERE 
+                id = '${employeeId}'`;
+        console.log(query);
         try {
             const response = await db.result(query);
+            console.log("response", response);
             return response;
         } catch (err) {
             return err.message;

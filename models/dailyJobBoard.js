@@ -62,29 +62,39 @@ class DailyJobBoard {
 
     //add jobs
     static async addNewJob(posting_date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id) {
+        const query = `insert into dailyjobboard
+        (posting_date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id)
+    Values ('${posting_date}', '${firstJob}', '${commentsFirstJob}', '${secondJob}', '${commentsSecondJob}', '${employee_id}')`;
         try {
-            const response = await db.result(`INSERT INTO dailyjobboard (posting_date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id)
-            VALUES ($1, $2, $3, $4, $5, $6)`, [posting_date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id]);
+            let response = await db.result(query);
+            return response;
+        } catch (err) {
+            console.log('Error', err.message);
+            return err;
+        }
+    }
+
+    static async updateJob(dailyjobboardId, posting_date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id) {
+        const query = `
+            UPDATE dailyjobboard 
+            SET 
+                posting_date = '${posting_date}', 
+                firstjob = '${firstJob}', 
+                commentsfirstjob = '${commentsFirstJob}', 
+                secondjob = '${secondJob}', 
+                commentssecondjob = '${commentsSecondJob}', 
+                employee_id = ${employee_id} 
+            WHERE 
+                id = '${dailyjobboardId}'`;
+        console.log(query);
+        try {
+            const response = await db.result(query);
+            console.log("response", response);
             return response;
         } catch (err) {
             return err.message;
         }
     }
-
-    //update jobs
-    static async updateJob(id, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id) {
-        try {
-            const response = await db.result(`
-                UPDATE dailyjobboard
-                SET ${column} = $1
-                WHERE id = $2
-            `, [firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id, id])
-            return response;
-        } catch (err) {
-            return err.message
-        }
-    }
-
 }
 
 module.exports = DailyJobBoard;

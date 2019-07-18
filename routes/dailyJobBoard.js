@@ -51,13 +51,17 @@ router.post("/post/add", async (req,res) => {
 });
 
 //update job 
-router.put('/update/:dailyjobboard_id?', async (req, res) => {
-    const { dailyjobboard_id } = req.params;
-    const {  firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id } = req.body;
-
-    const response = await DailyJobBoardModel.updateJob(dailyjobboard_id, "firstJob", "commentsFirstJob", "secondJob", "commentsSecondJob", "employee_id", firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id);
-
-    (response.command === 'UPDATE' && response.rowCount >= 1) ? res.sendStatus(200) : res.send(`Could not edit post`).status(409);
+router.put("/jobs/update/:job_id?", async (req, res) => {
+    const dailyjobboardId = req.params.dailyjobboard_id;
+    console.log(req.body);
+    const { posting_date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id } = req.body;
+    const response = await DailyJobBoardModel.updateJob(dailyjobboardId, posting_date, firstJob, commentsFirstJob, secondJob, commentsSecondJob, employee_id);
+    console.log("response is", response)
+    if (response.command === "UPDATE" && response.rowCount >= 1) {
+        res.sendStatus(200);
+    } else {
+        res.send(`Could not update dailyjobboardId ${dailyjobboardId}`).status(409);
+    } 
 });
 
 module.exports = router;
