@@ -8,6 +8,7 @@ router.get("/", (req, res, next) => {
     res.send("Welcome to my api").status(200);
 });
 
+//get all employees
 router.get("/all", async (req, res, next) => {
     const allEmployees = await EmployeeModel.getAll();
     res.json(allEmployees).status(200);
