@@ -55,10 +55,25 @@ class Spraychart {
         }
     }
 
-    static async updateEmployee(dateApplied, employee_id, holesTreated, lengthOfCutTreated, chemicalsBeingUsed, rateApplied, totalGallons, sprayRig, pestOrDiseaseControlled) {
-        const query = `UPDATE spraychart SET ${column} = ${dateApplied}, ${employee_id}, ${holesTreated}, ${lengthOfCutTreated}, ${chemicalsBeingUsed}, ${rateApplied}, ${totalGallons}, ${sprayRig}, ${pestOrDiseaseControlled} WHERE id = '${id}'`;
+    static async updateSpraychart(spraychartId, dateApplied, employee_id, holesTreated, lengthOfCutTreated, chemicalsBeingUsed, rateApplied, totalGallons, sprayRig, pestOrDiseaseControlled) {
+        const query = `
+            UPDATE spraychart
+            SET 
+                dateapplied = '${dateApplied}', 
+                employee_id = '${employee_id}', 
+                holestreated = '${holesTreated}', 
+                lengthofcuttreated = '${lengthOfCutTreated}', 
+                chemicalsbeingused = '${chemicalsBeingUsed}', 
+                rateapplied = '${rateApplied}',
+                totalgallons = '${totalGallons}',
+                sprayrig = '${sprayRig}',
+                pestordiseasecontrolled = '${pestOrDiseaseControlled}'
+            WHERE 
+                id = '${spraychartId}'`;
+        console.log(query);
         try {
             const response = await db.result(query);
+            console.log("response", response);
             return response;
         } catch (err) {
             return err.message;

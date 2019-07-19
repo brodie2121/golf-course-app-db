@@ -42,11 +42,11 @@ router.post("/post/add", async (req, res) => {
     }
 });
 
-router.put("/spraychart/update/:spraychart_id?", async (req, res) => {
+router.put("/spraycharts/update/:spraychart_id?", async (req, res) => {
     const spraychartId = req.params.spraychart_id;
     console.log(req.body);
     const { dateApplied, employee_id, holesTreated, lengthOfCutTreated, chemicalsBeingUsed, rateApplied, totalGallons, sprayRig, pestOrDiseaseControlled } = req.body;
-    const response = await SpraychartModel.updateSpraychart(spraychartId, `dateApplied`, dateApplied, `employee_id`, employee_id, `holesTreated`, holesTreated, `lengthOfCutTreated`, lengthOfCutTreated, `chemicalsBeingUsed`, chemicalsBeingUsed, `rateApplied`, rateApplied, `totalGallons`, totalGallons, `sprayRig`, sprayRig, `pestOrDiseaseControlled`, pestOrDiseaseControlled);
+    const response = await SpraychartModel.updateSpraychart(spraychartId, dateApplied, employee_id, holesTreated, lengthOfCutTreated, chemicalsBeingUsed, rateApplied, totalGallons, sprayRig, pestOrDiseaseControlled);
     if (response.command === "UPDATE" && response.rowCount >= 1) {
         res.sendStatus(200);
     } else {
